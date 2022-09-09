@@ -62,9 +62,28 @@ public class JpaMain {
 //            em.persist(memberA);
 //            em.persist(memberB);
 
-            Member member = em.find(Member.class, 101L);
-            member.setName("AAA");
-            
+//            Member member = em.find(Member.class, 101L);
+//            member.setName("AAA");
+
+            Member member1 = new Member();
+            member1.setUsername("A");
+
+            Member member2 = new Member();
+            member2.setUsername("B");
+
+            Member member3 = new Member();
+            member3.setUsername("C");
+
+            System.out.println("==================================");
+            em.persist(member1);
+            em.persist(member2);
+            em.persist(member3);
+
+            System.out.println("member1 = " + member1.getId());
+            System.out.println("member2 = " + member2.getId());
+            System.out.println("member3 = " + member3.getId());
+
+            System.out.println("==================================");
 
             // DB INSERT
             tx.commit();
