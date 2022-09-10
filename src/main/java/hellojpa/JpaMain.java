@@ -86,7 +86,30 @@ public class JpaMain {
 //            System.out.println("==================================");
 //
 
-            // one-way association
+//            // one-way association
+//            // Save
+//            Team team = new Team();
+//            team.setName("TeamA");
+//            em.persist(team);
+//
+//            Member member = new Member();
+//            member.setUsername("member1");
+//            member.setTeam(team);
+//            em.persist(member);
+//
+//            em.flush();
+//            em.clear();
+//
+//            // SEARCH
+//            Member findMember = em.find(Member.class, member.getId());
+//            Team findTeam = findMember.getTeam();
+//            System.out.println("find Team is : " + findTeam.getName());
+//
+//            // Team Changed
+////            Team newTeam = em.find(Team.class, 100L); // Need 100L Team
+////            findMember.setTeam(newTeam);
+
+            // two-way association
             // Save
             Team team = new Team();
             team.setName("TeamA");
@@ -94,20 +117,22 @@ public class JpaMain {
 
             Member member = new Member();
             member.setUsername("member1");
-            member.setTeam(team);
+            member.changeTeam(team);
             em.persist(member);
+
+            team.addMember(member);
 
             em.flush();
             em.clear();
 
             // SEARCH
             Member findMember = em.find(Member.class, member.getId());
-            Team findTeam = findMember.getTeam();
-            System.out.println("find Team is : " + findTeam.getName());
+            List<Member> members = findMember.getTeam().getMembers();
 
-            // Team Changed
-//            Team newTeam = em.find(Team.class, 100L); // Need 100L Team
-//            findMember.setTeam(newTeam);
+            for (Member m : members) {
+                System.out.println("m : " + m.getUsername());
+
+            }
 
             // DB INSERT
             tx.commit();

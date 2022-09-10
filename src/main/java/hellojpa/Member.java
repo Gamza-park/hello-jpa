@@ -27,10 +27,14 @@ public class Member {
         return team;
     }
 
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
+    }
+
     public void setTeam(Team team) {
         this.team = team;
     }
-
 
     public Long getId() {
         return id;
