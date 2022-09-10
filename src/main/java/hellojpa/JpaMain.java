@@ -65,25 +65,49 @@ public class JpaMain {
 //            Member member = em.find(Member.class, 101L);
 //            member.setName("AAA");
 
-            Member member1 = new Member();
-            member1.setUsername("A");
+//            Member member1 = new Member();
+//            member1.setUsername("A");
+//
+//            Member member2 = new Member();
+//            member2.setUsername("B");
+//
+//            Member member3 = new Member();
+//            member3.setUsername("C");
+//
+//            System.out.println("==================================");
+//            em.persist(member1);
+//            em.persist(member2);
+//            em.persist(member3);
+//
+//            System.out.println("member1 = " + member1.getId());
+//            System.out.println("member2 = " + member2.getId());
+//            System.out.println("member3 = " + member3.getId());
+//
+//            System.out.println("==================================");
+//
 
-            Member member2 = new Member();
-            member2.setUsername("B");
+            // one-way association
+            // Save
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            Member member3 = new Member();
-            member3.setUsername("C");
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeam(team);
+            em.persist(member);
 
-            System.out.println("==================================");
-            em.persist(member1);
-            em.persist(member2);
-            em.persist(member3);
+            em.flush();
+            em.clear();
 
-            System.out.println("member1 = " + member1.getId());
-            System.out.println("member2 = " + member2.getId());
-            System.out.println("member3 = " + member3.getId());
+            // SEARCH
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
+            System.out.println("find Team is : " + findTeam.getName());
 
-            System.out.println("==================================");
+            // Team Changed
+//            Team newTeam = em.find(Team.class, 100L); // Need 100L Team
+//            findMember.setTeam(newTeam);
 
             // DB INSERT
             tx.commit();
